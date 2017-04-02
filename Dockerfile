@@ -10,12 +10,12 @@ ENV R_VERSION=3.3.3
 ENV R_READLINE=yes
 
 ## Requirements during R configure
-RUN yum install -y readline-devel ## Required by --with-readline=yes
+RUN yum install -y readline-devel           ## --with-readline=yes
 RUN yum install -y gcc-c++
 RUN yum install -y gcc-gfortran
 RUN yum install -y zlib-devel
 RUN yum install -y bzip2-devel
-RUN yum install -y xz-devel          ## liblzma
+RUN yum install -y xz-devel                 ## liblzma
 RUN yum install -y pcre-devel
 RUN yum install -y curl-devel
 
@@ -27,8 +27,6 @@ RUN yum install -y cairo pango-devel        ## (optional) capabilities: cairo
 
 RUN yum install -y libicu-devel             ## (optional) capabilities: ICU
 
-##RUN yum install -y liblapack-devel          ## (optional) capabilities: lapack
-
 RUN yum install -y texinfo                  ## (optional) for building HTML docs
 RUN yum install -y texlive-latex-bin-bin    ## (optional) pdflatex
 
@@ -39,12 +37,12 @@ RUN yum install -y make
 RUN yum install -y java
 
 ## Requirements during R runtime
-RUN yum install -y which             ## R needs it at runtime, e.g. Sys.which()
+RUN yum install -y which                    ## R needs it for Sys.which()
 
 
 ## Requirements during R CMD check
 RUN yum install -y qpdf
-RUN yum install -y valgrind          ## R CMD check --use-valgrind
+RUN yum install -y valgrind                 ## R CMD check --use-valgrind
 
 ## Build and install R from source
 RUN cd /tmp; curl -O https://cloud.r-project.org/src/base/R-3/R-${R_VERSION}.tar.gz
@@ -56,7 +54,7 @@ RUN cd /tmp/R-${R_VERSION}; make
 RUN cd /tmp/R-${R_VERSION}; make install
 
 ## R runtime properties
-RUN mkdir /usr/local/lib64/R/site-library  ## Where to install packages
+RUN mkdir /usr/local/lib64/R/site-library   ## Where to install packages
 
 RUN echo "R_BIOC_VERSION=3.4" >> .Renviron
 RUN echo 'options(repos = c(CRAN="https://cloud.r-project.org", BioCsoft="https://bioconductor.org/packages/3.4/bioc", BioCann="https://bioconductor.org/packages/3.4/data/annotation", BioCexp="https://bioconductor.org/packages/3.4/data/experiment", BioCextra="https://bioconductor.org/packages/3.4/extra"))' >> .Rprofile
