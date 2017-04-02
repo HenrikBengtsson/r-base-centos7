@@ -27,7 +27,7 @@ RUN yum install -y cairo pango-devel        ## (optional) capabilities: cairo
 
 RUN yum install -y libicu-devel             ## (optional) capabilities: ICU
 
-RUN yum install -y liblapack-devel          ## (optional) capabilities: lapack
+##RUN yum install -y liblapack-devel          ## (optional) capabilities: lapack
 
 RUN yum install -y texinfo                  ## (optional) for building HTML docs
 RUN yum install -y texlive-latex-bin-bin    ## (optional) pdflatex
