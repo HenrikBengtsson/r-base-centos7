@@ -40,6 +40,8 @@ RUN yum install -y which                    ## R needs it for Sys.which()
 RUN yum install -y qpdf
 RUN yum install -y valgrind                 ## R CMD check --use-valgrind
 
+## Requirements for Java                    ## R CMD javareconf below
+RUN yum install -y java-1.8.0-openjdk-*
 
 ## Version of R to build and install
 ENV R_VERSION=3.3.3
@@ -53,8 +55,11 @@ RUN cd /tmp/R-${R_VERSION}; ./configure --with-readline=yes --enable-memory-prof
 RUN cd /tmp/R-${R_VERSION}; make
 RUN cd /tmp/R-${R_VERSION}; make install
 
+RUN R CMD javareconf
+
 ## R runtime properties
 RUN mkdir /usr/local/lib64/R/site-library   ## Where to install packages
 
 RUN echo "R_BIOC_VERSION=3.4" >> .Renviron
 RUN echo 'options(repos = c(CRAN="https://cloud.r-project.org", BioCsoft="https://bioconductor.org/packages/3.4/bioc", BioCann="https://bioconductor.org/packages/3.4/data/annotation", BioCexp="https://bioconductor.org/packages/3.4/data/experiment", BioCextra="https://bioconductor.org/packages/3.4/extra"))' >> .Rprofile
+
