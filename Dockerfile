@@ -44,7 +44,7 @@ RUN yum install -y valgrind                 ## R CMD check --use-valgrind
 RUN yum install -y java-1.8.0-openjdk-*
 
 ## Version of R to build and install
-ENV R_VERSION=3.3.3
+ENV R_VERSION=3.4.0
 
 ## Build and install R from source
 RUN cd /tmp; curl -O https://cloud.r-project.org/src/base/R-3/R-${R_VERSION}.tar.gz
@@ -60,6 +60,6 @@ RUN R CMD javareconf
 ## R runtime properties
 RUN mkdir /usr/local/lib64/R/site-library   ## Where to install packages
 
-RUN echo "R_BIOC_VERSION=3.4" >> .Renviron
-RUN echo 'options(repos = c(CRAN="https://cloud.r-project.org", BioCsoft="https://bioconductor.org/packages/3.4/bioc", BioCann="https://bioconductor.org/packages/3.4/data/annotation", BioCexp="https://bioconductor.org/packages/3.4/data/experiment", BioCextra="https://bioconductor.org/packages/3.4/extra"))' >> .Rprofile
+RUN echo "R_BIOC_VERSION=3.5" >> .Renviron
+RUN echo 'options(repos = c(CRAN="https://cloud.r-project.org", BioCsoft="https://bioconductor.org/packages/3.5/bioc", BioCann="https://bioconductor.org/packages/3.5/data/annotation", BioCexp="https://bioconductor.org/packages/3.5/data/experiment", BioCextra="https://bioconductor.org/packages/3.5/extra"))' >> .Rprofile
 
