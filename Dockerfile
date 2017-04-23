@@ -31,7 +31,8 @@ RUN yum install -y texlive-latex-bin-bin    ## (optional) pdflatex
 RUN yum install -y make
 
 ## Requirements during R make --with-recommended-packages
-RUN yum install -y java
+## Requirements for Java                    ## R CMD javareconf below
+RUN yum install -y java-1.8.0-openjdk-*
 
 ## Requirements during R runtime
 RUN yum install -y which                    ## R needs it for Sys.which()
@@ -39,9 +40,6 @@ RUN yum install -y which                    ## R needs it for Sys.which()
 ## Requirements during R CMD check
 RUN yum install -y qpdf
 RUN yum install -y valgrind                 ## R CMD check --use-valgrind
-
-## Requirements for Java                    ## R CMD javareconf below
-RUN yum install -y java-1.8.0-openjdk-*
 
 ## Version of R to build and install
 ENV R_VERSION=3.4.0
